@@ -6,16 +6,26 @@ var rt;
 
 //Initialize a R-tree data structure and insert the X3DOM spatial objects into it
 function AgenerateRtree() {
-	console.log("test");
+	console.log("Generate R tree ");
 	var indexingStart = performance.now();
 	myRTree = new R_Tree(20);
 	//Retrieve all Spheres of Scene
 	for (var i=1; i<x3dom.canvases[0].x3dElem.children[0].children.length; i++) {
 		if (x3dom.canvases[0].x3dElem.children[0].children[i]._x3domNode) {
-			if (x3dom.canvases[0].x3dElem.children[0].children[i].nodeName == "Transform") {
+// 			
+			
+			if (x3dom.canvases[0].x3dElem.children[0].children[i].nodeName == "Transform" &&
+			x3dom.canvases[0].x3dElem.children[0].children[i].nodeName._DEF != "floor" ) {
+				console.log("not floor")
 				var indexRecord = new SpatialObject(x3dom.canvases[0].x3dElem.children[0].children[i]._x3domNode);
 				myRTree.InsertEntry(indexRecord.xMax, indexRecord.yMax, indexRecord.zMax, indexRecord.xMin, indexRecord.yMin, indexRecord.zMin, x3dom.canvases[0].x3dElem.children[0].children[i]._x3domNode._DEF);
 			}
+// 
+
+			// if (x3dom.canvases[0].x3dElem.children[0].children[i].nodeName == "Transform") {
+			// 	var indexRecord = new SpatialObject(x3dom.canvases[0].x3dElem.children[0].children[i]._x3domNode);
+			// 	myRTree.InsertEntry(indexRecord.xMax, indexRecord.yMax, indexRecord.zMax, indexRecord.xMin, indexRecord.yMin, indexRecord.zMin, x3dom.canvases[0].x3dElem.children[0].children[i]._x3domNode._DEF);
+			// }
 		}
 	}
 	
