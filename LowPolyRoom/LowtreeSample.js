@@ -12,20 +12,10 @@ function AgenerateRtree() {
 	//Retrieve all Spheres of Scene
 	for (var i=1; i<x3dom.canvases[0].x3dElem.children[0].children.length; i++) {
 		if (x3dom.canvases[0].x3dElem.children[0].children[i]._x3domNode) {
-// 			
-			
-			if (x3dom.canvases[0].x3dElem.children[0].children[i].nodeName == "Transform" &&
-			x3dom.canvases[0].x3dElem.children[0].children[i].nodeName._DEF != "floor" ) {
-				console.log("not floor")
+			if (x3dom.canvases[0].x3dElem.children[0].children[i].nodeName == "Transform") {
 				var indexRecord = new SpatialObject(x3dom.canvases[0].x3dElem.children[0].children[i]._x3domNode);
 				myRTree.InsertEntry(indexRecord.xMax, indexRecord.yMax, indexRecord.zMax, indexRecord.xMin, indexRecord.yMin, indexRecord.zMin, x3dom.canvases[0].x3dElem.children[0].children[i]._x3domNode._DEF);
 			}
-// 
-
-			// if (x3dom.canvases[0].x3dElem.children[0].children[i].nodeName == "Transform") {
-			// 	var indexRecord = new SpatialObject(x3dom.canvases[0].x3dElem.children[0].children[i]._x3domNode);
-			// 	myRTree.InsertEntry(indexRecord.xMax, indexRecord.yMax, indexRecord.zMax, indexRecord.xMin, indexRecord.yMin, indexRecord.zMin, x3dom.canvases[0].x3dElem.children[0].children[i]._x3domNode._DEF);
-			// }
 		}
 	}
 	
