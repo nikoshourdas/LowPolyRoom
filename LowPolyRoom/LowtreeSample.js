@@ -1112,7 +1112,7 @@ function spatialRelations() {
 	iterateChildren(rt, relationsArray);
 	
 	//Define and point to our spatial relations web worker
-	var worker = new Worker("150Sample/relationsTask.js");
+	var worker = new Worker("../150Sample/relationsTask.js");
 	//Receive 'implicatedRelations' from web worker
 	worker.onmessage = function(e) {
 		implicatedRelations = JSON.parse(e.data);
