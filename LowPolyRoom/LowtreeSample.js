@@ -1117,10 +1117,10 @@ function spatialRelations() {
 	worker.onmessage = function(e) {
 		implicatedRelations = JSON.parse(e.data);
   //Count the number of spatial relations returned from web worker
-  document.getElementById("spatialResults").value = "Implicated relations were drawn in a data table below due to excessive number.";
-  document.getElementById("relationsSet").value = implicatedRelations.length;
-  drawDataTable(implicatedRelations);
-  implicatedRelations = [];
+	document.getElementById("spatialResults").value = "Implicated relations were drawn in a data table below due to excessive number.";
+	document.getElementById("relationsSet").value = implicatedRelations.length;
+	drawDataTable(implicatedRelations);
+	implicatedRelations = [];
 	};
 	//Typical error handling
     worker.onerror = function(e) {

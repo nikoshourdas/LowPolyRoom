@@ -275,7 +275,7 @@ h1 {font-family: 'Open Sans'; font-weight: normal; font-style: normal; font-size
 
 #decorative2{height: 135px; background-color: rgb(255, 255, 255);}
 
-#divFooter {font-family: 'Open Sans', sans-serif; background-color: rgb(18, 18, 18); color: rgb(180, 173, 173); padding-top: 32px; line-height: 23px; font-size: 12px; text-transform: none; background-image: url(backgrounds/noisy_net.png); background-repeat: repeat repeat;}
+#divFooter {font-family: 'Open Sans', sans-serif; background-color: rgb(18, 18, 18); color: rgb(180, 173, 173); padding-top: 32px; line-height: 23px; font-size: 12px; text-transform: none; background-image: url(../backgrounds/noisy_net.png); background-repeat: repeat repeat;}
 
 #divFooter a {color: rgb(132, 164, 51);}
 
