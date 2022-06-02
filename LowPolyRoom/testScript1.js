@@ -8,7 +8,7 @@ var label_armchair = "NUll";
 var label_table = "NUll";
 var label_sofa = "NUll";
 var label_cup = "NUll";
-var label_table = "NUll";
+var label_cup = "NUll";
 
 //neuralNetwork------------------------------------------------------------------------------------------------------
 function neuralnet(){
@@ -111,19 +111,24 @@ function neuralnet(){
             pr = Array.from(pr.argMax(1).dataSync());
             console.log(pr)
             if (pr == 0){
-                console.log('armchair')
+                console.log('armchair');
+                label_armchair = 'armchair';
             }
             else if (pr == 1){
-                console.log('cup')
+                console.log('cup');
+                label_cup = 'cup';
             }
             else if (pr == 2){
-                console.log('sofa')
+                console.log('sofa');
+                label_sofa = 'sofa';
             }
             else if (pr == 3){
-                console.log('bed')
+                console.log('bed');
+                label_bed = 'bed';
             }
             else {
-                console.log('table')
+                console.log('table');
+                label_table = 'table';
             }
         }
         loadModel()
