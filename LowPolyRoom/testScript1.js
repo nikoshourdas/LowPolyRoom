@@ -128,11 +128,19 @@ function neuralnet(){
             }
             else {
                 console.log('table');
-                label_table = 'table';
+                var mat = document.getElementsByTagName("Transform");
+                
+                aMat = mat[0]; 
+                if (aMat.attributes = 'Table_TRANSFORM') {
+                    aMat.setAttribute("DEF" , "table_NN")
+                    console.log("tag change")
+                }
+
             }
         }
         loadModel()
     }                                  
 }
-neuralnet()
+// neuralnet()
 //----------------------s
+
