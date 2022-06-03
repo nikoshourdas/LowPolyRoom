@@ -105,41 +105,40 @@ function neuralnet(){
         async function loadModel(){
             
             var mat = document.getElementsByTagName("Transform");
-            aMat = mat[0];
-
+            
             const model = await tf.loadLayersModel('http://10.0.24.246:8080/LowPolyRoom/LowPolyRoom/model.json');
                                                     
             let numb = tf.reshape(list2,[(list2.length/3),3])
             pr = await model.predict(numb.expandDims(0));
             pr = Array.from(pr.argMax(1).dataSync());
+
             console.log(pr)
+            
             if (pr == 0){
-                console.log('armchair');        
-                x3dom.canvases[0].x3dElem.children[0].children[3]._x3domNode._DEF = 'armchair_NN';
-                console.log("tag change");
+                
+                aMat = mat[0]; 
+                if (aMat.attributes = 'armchair_TRANSFORM') {
+                    aMat.setAttribute("DEF" , "armchair_NN")
+                    console.log("tag change")
+                }
             }
             else if (pr == 1){
                 console.log('cup');
-                x3dom.canvases[0].x3dElem.children[0].children[6]._x3domNode._DEF = 'cup_NN';
-                console.log("tag change")    ;        
+                         
             }
             else if (pr == 2){
                 console.log('sofa');
-                    // sofa {4}
-                    // x3dom.canvases[0].x3dElem.children[0].children[4]._x3domNode._DEF = 'sofa_NN'
-                    aMat
-                    console.log("tag change")
+                    
                 
             }
             else if (pr == 3){
                 console.log('bed');
 
-                console.log("not trained for beds ")
             }
             else {
                 console.log('table');
-                    x3dom.canvases[0].x3dElem.children[0].children[5]._x3domNode._DEF = 'table_NN'
-                    console.log("tag change")
+                    
+
             }
         }
         loadModel()
