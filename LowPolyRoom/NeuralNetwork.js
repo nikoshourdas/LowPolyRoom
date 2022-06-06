@@ -3,6 +3,7 @@
 var X3DRoot, pointCoordinates, kNNx, kNNy, kNNz, kNNmean;
 var rangeQuery = false;
 
+var startTime = performance.now();
 
 var label_armchair = "NUll";
 var label_table = "NUll";
@@ -145,7 +146,10 @@ function neuralnet(){
             }
         }
         loadModel()
-    }                                  
+    }      
+    var endTime = performance.now()                            ;
+    var totaltime = endTime - startTime;
+    console.log("Neural Network performance, Time in : "+totaltime + " miliseconds");
 }
 // neuralnet()
 //----------------------s
