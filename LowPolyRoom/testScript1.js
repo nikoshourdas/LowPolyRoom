@@ -104,7 +104,7 @@ function neuralnet(){
         //model & pred------------------------------------------------------
         async function loadModel(){
             
-            var mat = document.getElementsByTagName("Transform");
+            
             
             const model = await tf.loadLayersModel('http://10.0.24.246:8080/LowPolyRoom/LowPolyRoom/model.json');
                                                     
@@ -115,12 +115,9 @@ function neuralnet(){
             console.log(pr)
             
             if (pr == 0){
+                console.log("armchair");
+                labelChangeManager("armchair");
                 
-                aMat = mat[0]; 
-                if (aMat.attributes = 'armchair_TRANSFORM') {
-                    aMat.setAttribute("DEF" , "armchair_NN")
-                    console.log("tag change")
-                }
             }
             else if (pr == 1){
                 console.log('cup');
@@ -146,4 +143,16 @@ function neuralnet(){
 }
 // neuralnet()
 //----------------------s
+function labelChangeManager(label){
+    console.log('label Change Manager Activated');
 
+    var mat = document.getElementsByTagName("Transform");
+
+
+    if (aMat.attributes = 'armchair_TRANSFORM') {
+        aMat.setAttribute("DEF" , label);
+        console.log("tag change")
+    }
+
+    
+}
