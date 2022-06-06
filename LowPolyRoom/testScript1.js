@@ -116,26 +116,21 @@ function neuralnet(){
             
             if (pr == 0){
                 console.log("armchair");
-                labelChangeManager("armchair");
-                
+                x3dom.canvases[0].x3dElem.children[0].children[3]._x3domNode._DEF = "armchair_NN";
             }
             else if (pr == 1){
                 console.log('cup');
-                         
+
             }
             else if (pr == 2){
                 console.log('sofa');
-                    
-                
             }
             else if (pr == 3){
                 console.log('bed');
-
+                labelChangeManager('bed');
             }
             else {
                 console.log('table');
-                    
-
             }
         }
         loadModel()
@@ -143,16 +138,4 @@ function neuralnet(){
 }
 // neuralnet()
 //----------------------s
-function labelChangeManager(label){
-    console.log('label Change Manager Activated');
 
-    var mat = document.getElementsByTagName("Transform");
-
-
-    if (aMat.attributes = 'armchair_TRANSFORM') {
-        aMat.setAttribute("DEF" , label);
-        console.log("tag change")
-    }
-
-    
-}
