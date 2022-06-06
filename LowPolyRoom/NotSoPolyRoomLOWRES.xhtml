@@ -1,0 +1,569 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>3D R-tree -Not so low Poly Room</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="author" content="mclab tei crete" />
+
+    <link href="../scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  
+    
+    <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" />
+
+  
+    
+    <link href="../scripts/icons/general/stylesheets/general_foundicons.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="../scripts/icons/social/stylesheets/social_foundicons.css" media="screen" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="../scripts/fontawesome/css/font-awesome.min.css" />
+
+    <link href="http://fonts.googleapis.com/css?family=Allura" rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Aldrich" rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Palatino+Linotype" rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Calligraffitti" rel="stylesheet" type="text/css" />
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../styles/custom.css" rel="stylesheet" type="text/css" />
+
+
+    <link rel="stylesheet" type="text/css" href="../x3dom/x3dom.css" />
+    <script type="text/javascript" src="../x3dom/x3dom.js"></script>
+    <script type="text/javascript" src="LowtreeSample.js"></script>
+    <script type="text/javascript" src="Lowbaseline.js"></script>
+    <script type="text/javascript" src="../150Sample/relationsTask.js"></script>
+
+    <script type="text/javascript" src="NeuralNetwork.js"></script>
+
+    
+
+</head>
+
+<!-- whenever the page reloads 2 functions initialize , 1. initialize the x3d scene 
+2. calculate the neural network  -->
+
+<body id="pageBody" onload="initScene();neuralnet()">
+
+    <div id="decorative2">
+        <div class="container">
+
+            <div class="divPanel topArea notop nobottom">
+                <div class="row-fluid">
+                    <div class="span12">
+
+                        <div id="divLogo" class="pull-left">
+                            <a href="../index.html" id="divSiteTitle">3D R-tree </a><br />
+                            <a href="../index.html" id="divTagLine">FOR X3DOM SCENES</a>
+                        </div>
+                        <!--menu-->
+                        <div id="divMenuRight" class="pull-right">
+                            <div class="navbar">
+                                <button type="button" class="btn btn-navbar-highlight btn-large btn-primary" data-toggle="collapse" data-target=".nav-collapse">
+								NAVIGATION <span class="icon-chevron-down icon-white"></span>
+							</button>
+                                <div class="nav-collapse collapse">
+                                    <ul class="nav nav-pills ddmenu">
+                                        <li class="dropdown"><a href="lowPolyRoom.xhtml"><i class="fa fa-home"></i></a></li>
+                                        <li class="dropdown">
+                                            <a href="javascript: void(0);" class="dropdown-toggle">Spatial Searching <b class="caret"></b></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="NotSoPolyRoomLOWRES.xhtml">Low resolution</a></li>
+                                                <li><a href="NotSoPolyRoom.xhtml">Normal resolution</a></li>
+                                                <li><a href="NotSoPolyRoomHighRes.xhtml">High resolution</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End menu-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="contentOuterSeparator"></div>
+
+    <div class="container">
+
+        <div class="divPanel page-content">
+            <div class="row-fluid">
+                <div class="span12">
+                    <h2 style="text-align:center;">Low Polygon Room</h2>
+                    <p>This demo exposes an X3DOM scene of <i>150</i> Sphere elements which are spatially indexed under the same 3D R-tree instance. Their sporadically distribution in 3D space creates a highly overlapping structure, forcing R-tree operations
+                        to traverse more subtrees than usual and achieve increased time costs.</p>
+                    <hr/>
+                </div>
+            </div>
+            <div class="row-fluid">
+
+                <!--Edit Sidebar Content here-->
+                <div class="span4">
+                    <p style="text-align:center;">(1) Initialize a 3D R-tree data structure to populate city buildings <br/>
+                        <input id="createRtree" type="button" value="Create R-tree!" onclick="AgenerateRtree()" /> </p>
+                    <hr style="margin:55px 0 35px" />
+                    <p style="text-align:center;">(2) Display the generated 3D R-tree in X3DOM canvas (optional) <br/>
+                        <input id="drawRtree" type="button" value="Display R-tree!" disabled="disabled" onclick="displayRectParallelepipeds()" /></p>
+                    <hr style="margin:55px 0 35px" />
+                    <p style="text-align:center;">Choose any of the following viewpoints to easily navigate and zoom in/out <br/>
+                        <button onclick="X3DRoot.runtime.showAll('posX'); return false;">Move along X axis</button>
+                        <button onclick="X3DRoot.runtime.showAll('negX'); return false;">Move along -X axis</button>
+                        <button onclick="X3DRoot.runtime.showAll('posY'); return false;">Move along Y axis</button>
+                        <button onclick="X3DRoot.runtime.showAll('negY'); return false;">Move along -Y axis</button>
+                        <button onclick="X3DRoot.runtime.showAll('posZ'); return false;">Move along Z axis</button>
+                        <button onclick="X3DRoot.runtime.showAll('negZ'); return false;">Move along -Z axis</button></p>
+                </div>
+                <!--/End Sidebar Content -->
+
+                <!--Edit Main Content Area here-->
+                <div class="span8" id="divMain">
+
+
+                    <X3D id="components150" xmlns="http://www.web3d.org/specifications/x3d-namespace" showStat="false" showLog="false" x="0px" y="0px">
+                        <!-- Change the 3D viewpoint here -->
+
+
+
+                        <Scene onclick="markerCoords(event)">
+                                
+
+                        </Scene>
+
+                    </X3D>
+
+                </div>
+                <!--/End Main Content Area here-->
+
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="span12 sidebox">
+                <!-- point query label-->
+                <div class="span3">
+                    <p><b>POINT QUERY</b></p>
+                    <p>Place a query point in the scene to search for intersecting objects</p><input id="createQueryPoint" type="button" value="Click and set your query point!" disabled="disabled" onclick="createPoint()" /><br /> X:
+                    <div id="pointX" style="display: inline">N/A</div>
+                    <br /> Y:
+                    <div id="pointY" style="display: inline">N/A</div>
+                    <br /> Z:
+                    <div id="pointZ" style="display: inline">N/A</div>
+                    <br />
+                    <br />
+                    <input type="button" value="Return matched objects!" onclick="pointSearch(pointCoordinates)" />
+                    <br />
+                    <br />
+                    <textarea id="pointQueryResults" placeholder="Overlapping entries" rows="5" cols="21" disabled="disabled"></textarea>
+                </div>
+                <!-- window query label -->
+                <div class="span3">
+                    <p><b>REGION/WINDOW QUERY</b></p>
+                    <p>Attach a moveable rectangular parallelepiped area to retrieve overlapping objects</p><input id="createSearchArea" type="button" value="Create your search area!" disabled="disabled" onclick="drawSearchRect()" /><br />
+                    <p><b>Modify the predefined size of the presented search area</b></p>
+                    Size X: <input id="sizeX" type="number" value="1" min="0" max="Infinity" step="0.50" onchange="modifySearchRect(this.id, this.value)" style="width: 50px" /><br /> Size Y: <input id="sizeY" type="number" value="1" min="0" max="Infinity"
+                        step="0.50" onchange="modifySearchRect(this.id, this.value)" style="width: 50px" /><br /> Size Z: <input id="sizeZ" type="number" value="1" min="0" max="Infinity" step="0.50" onchange="modifySearchRect(this.id, this.value)" style="width: 50px"
+                    /><br />
+                    <br />
+                    <input type="button" value="Return overlapping objects!" onclick="rangeSearch()" />
+                    <br />
+                    <br />
+                    <textarea id="rangeQueryResults" placeholder="Contained entries" rows="5" cols="21" disabled="disabled"></textarea>
+                </div>
+                <!-- K nn Query label -->
+                <div class="span3">
+                    <p><b>k-NN QUERY</b></p>
+                    <p>Attach a moveable Cone element to retrieve its k-th nearest neighbors</p><input id="createNNPoint" type="button" value="Click and set your NN query point!" disabled="disabled" onclick="setNNPoint()" /><br /> X:
+                    <div id="NNpointX" style="display: inline">N/A</div>
+                    <br /> Y:
+                    <div id="NNpointY" style="display: inline">N/A</div>
+                    <br /> Z:
+                    <div id="NNpointZ" style="display: inline">N/A</div>
+                    <p><b>Define k-NN sample </b><input id="kNN" type="number" value="1" min="1" max="Infinity" onchange="validateNN()" style="width: 40px" /></p>
+                    <input id="NNValues" type="button" value="Return nearest neighbours!" onclick="kNNSearch(kNNx, kNNy, kNNz, kNNmean)" />
+                    <br />
+                    <br />
+                    <textarea id="kNNResults" placeholder="Nearest entries" rows="5" cols="21" disabled="disabled"></textarea>
+                </div>
+                <!-- spacial relations query  -->
+                <div class="span3">
+                    <p><b>SPATIAL RELATIONS</b></p>
+                    <p>Calculate spatial relations between indexed objects</p>
+                    <input type="button" value="Get relationships!" 
+                    onclick="calculateSpatialRelations()" 
+                    />
+                    <br />
+                    <br />
+                    <textarea id="spatialResults" placeholder="Spatial relations" rows="5" cols="21" disabled="disabled"></textarea>
+                    <p><b>No. of relations </b><input id="relationsSet" style="width: 50px" disabled="disabled" /></p>
+                </div>
+            </div>
+        </div>
+
+        <hr/>
+        <table id="example" class="display" width="100%"></table>
+        <hr/>
+
+        <!-- text under first box  -->
+        <div class="divPanel page-content">
+            <p>Coordinates input above after the creation of the R-tree structure were also used in the baseline case study, which involved a set of comparison operations without indexing capabilities. <i>Point</i> query was represented by an intersection
+                criterion aimed to validate the given coordinates against each 3D object's bounding box, while a containment check was applied for <i>region</i> query case. On the other hand, <i>k-NN</i> measurement took place with a sequential recording
+                of the Euclidean distances between the given coordinates and each 3D object, followed by a sorting in an ascending order in order to retrieve the k-closest. Finally, the deduction of <i>spatial relations</i> was made through an exponential
+                search for all possible combinations between scene's 3D objects.</p>
+        </div>
+
+
+        
+        <hr/>
+        <table id="defaultSample" class="display" width="100%"></table>
+    </div>
+
+    <!-- footer -->
+    <div id="footerOuterSeparator"></div>
+
+    <div id="divFooter" class="footerArea">
+        <div class="container">
+            <div class="divPanel">
+                <div class="row-fluid">
+                    <div class="span12" style="text-align:center;">
+                        Tei of Crete <br/>
+                        <a href="http://www.medialab.teicrete.gr/index.php/minipages" target="_blank">Multimedia Content Lab </a>
+                        <p class="social_bookmarks">
+                            <a href="https://www.facebook.com/mclabteicrete" target="_blank"><i class="social foundicon-facebook"></i> Facebook</a>
+                            <a href="https://twitter.com/mclabteicrete" target="_blank"><i class="social foundicon-twitter"></i> Twitter</a>
+                            <a href="https://www.pinterest.com/mclabteicrete/" target="_blank"><i class="social foundicon-pinterest"></i> Pinterest</a>
+                            <a href="https://www.linkedin.com/in/mclabteicrete" target="_blank"><i class="social foundicon-linkedin"></i>LinkedIn</a>
+                            <a href="https://www.linkedin.com/in/mclabteicrete" target="_blank"><i class="social foundicon-google-plus"></i>Google+</a>
+                            <a href="https://www.youtube.com/channel/UCCDnYVP1wbD7hwICxFZObIg" target="_blank"><i class="social foundicon-youtube"></i>Youtube</a>
+                        </p>
+                    </div>
+                </div>
+                <br />
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- load external  -->
+    <script src="../scripts/jquery.min.js" type="text/javascript"></script>
+    <script src="../scripts/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../scripts/default.js" type="text/javascript"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    
+    <script href="http://http://127.0.0.1:5500/modeltest.html/Jquery/javascript.js"></script>
+    <script src="https://requirejs.org/docs/release/2.3.6/r.js"></script>
+    <script href="https://requirejs.org/docs/release/2.3.6/minified/require.js"></script>
+
+
+<!-- Scripts -->
+    <!-- init scene  -->
+    <!-- createPoint -->
+    <!-- marker coords -->
+    <!-- draw search rect  -->
+    <!-- modifySearchRect -->
+    <!-- setNNPoint -->
+    <!-- get3DSpaceCoords -->
+    <!-- validateNN -->
+    <!-- removeMarkerPoint-->
+    <!-- removeRectArea -->
+    <!-- removeConePoint -->
+
+    <script>
+        //<![CDATA[
+        var X3DRoot, pointCoordinates, kNNx, kNNy, kNNz, kNNmean;
+        var rangeQuery = false;
+        
+
+        var label_armchair = "NUll";
+        var label_table = "NUll";
+        var label_sofa = "NUll";
+        var label_cup = "NUll";
+        var label_table = "NUll";
+
+        //Initialize a couple of basic variables
+        function initScene() {
+            //Get the root of the X3D scene being displayed
+            X3DRoot = document.getElementsByTagName('X3D')[0];
+
+            //Refresh the k-NN variables before passing them to the relative R-tree function
+            var kNNValues = document.getElementById("NNValues");
+            kNNValues.onclick = function() {
+                kNNx = document.getElementById("NNpointX").innerHTML;
+                kNNy = document.getElementById("NNpointY").innerHTML;
+                kNNz = document.getElementById("NNpointZ").innerHTML;
+                kNNmean = document.getElementById("kNN").value;
+                kNNSearch(kNNx, kNNy, kNNz, kNNmean);
+            }
+        }
+
+        //Create a Sphere element which will be used as our indicator for point queries
+        function createPoint() {
+            rangeQuery = false;
+            if (document.getElementById("searchRect")) {
+                removeRectArea();
+            }
+            if (document.getElementById("kNNCone")) {
+                removeConePoint();
+            }
+            var QueryPointSwitch = document.createElement('Switch');
+            QueryPointSwitch.setAttribute('whichChoice', '0');
+            QueryPointSwitch.setAttribute('id', 'switcher');
+            var QueryPointTransform = document.createElement('Transform');
+            QueryPointTransform.setAttribute('id', 'marker');
+            QueryPointTransform.setAttribute('scale', '0.1 0.1 0.1');
+            QueryPointTransform.setAttribute('translation', '1 1 1');
+            QueryPointSwitch.appendChild(QueryPointTransform);
+            var QueryPointShape = document.createElement('Shape');
+            QueryPointShape.setAttribute('isPickable', 'false');
+            QueryPointTransform.appendChild(QueryPointShape);
+            var QueryPointAppearance = document.createElement('Appearance');
+            QueryPointShape.appendChild(QueryPointAppearance);
+            var QueryPointMaterial = document.createElement('Material');
+            QueryPointMaterial.setAttribute('diffuseColor', 'olivedrab');
+            QueryPointMaterial.setAttribute('specularColor', 'peachpuff');
+            QueryPointAppearance.appendChild(QueryPointMaterial);
+            var QueryPointSphere = document.createElement('Sphere');
+            QueryPointShape.appendChild(QueryPointSphere);
+            var X3DScene = document.getElementsByTagName('Scene')[0];
+            X3DScene.appendChild(QueryPointSwitch);
+            document.getElementById("createQueryPoint").disabled = true;
+        }
+
+        //Get mouse coords and update marker's position
+        function markerCoords(event) {
+            if ((rangeQuery == false) && (document.getElementById("switcher"))) {
+                var mouseCoords = document.getElementsByTagName('Scene')[0];
+                pointCoordinates = event.hitPnt;
+                document.getElementById("pointX").innerHTML = pointCoordinates[0];
+                document.getElementById("pointY").innerHTML = pointCoordinates[1];
+                document.getElementById("pointZ").innerHTML = pointCoordinates[2];
+                document.getElementById("pointXX").innerHTML = pointCoordinates[0];
+                document.getElementById("pointYY").innerHTML = pointCoordinates[1];
+                document.getElementById("pointZZ").innerHTML = pointCoordinates[2];
+                document.getElementById("marker").setAttribute("translation", pointCoordinates[0] + " " + pointCoordinates[1] + " " + pointCoordinates[2]);
+            }
+        }
+
+        //Define a search area in X3DOM scene which can be freely moved and have its dimensions changed, along all positive and negative axes
+        function drawSearchRect() {
+            rangeQuery = true;
+            if (document.getElementById("switcher")) {
+                removeMarkerPoint();
+            }
+            if (document.getElementById("kNNCone")) {
+                removeConePoint();
+            }
+            //Create a moveable 'Box' element and utilize it as our rectangular search area
+            var SearchRectTransform = document.createElement('Transform');
+            SearchRectTransform.setAttribute('id', 'searchRect');
+            SearchRectTransform.setAttribute('DEF', 'searchRect');
+            SearchRectTransform.setAttribute('translation', '-1 0 0');
+            var SearchRectShape = document.createElement('Shape');
+            SearchRectTransform.appendChild(SearchRectShape);
+            var SearchRectBox = document.createElement('Box');
+            SearchRectBox.setAttribute('id', 'resizableBox');
+            SearchRectBox.setAttribute('size', '1 1 1');
+            SearchRectShape.appendChild(SearchRectBox);
+            var SearchRectAppearance = document.createElement('Appearance');
+            SearchRectShape.appendChild(SearchRectAppearance);
+            var SearchRectMaterial = document.createElement('Material');
+            SearchRectMaterial.setAttribute('diffuseColor', '1 0 0');
+            SearchRectMaterial.setAttribute('transparency', '.7');
+            SearchRectAppearance.appendChild(SearchRectMaterial);
+            var X3DScene = document.getElementsByTagName('Scene')[0];
+            X3DScene.appendChild(SearchRectTransform);
+            var SearchArea = document.getElementById("searchRect");
+            modifySearchRect('sizeX', 1);
+            modifySearchRect('sizeY', 1);
+            modifySearchRect('sizeZ', 1);
+            new x3dom.Moveable(X3DRoot, SearchArea, function(event) {}, 0);
+            document.getElementById("createSearchArea").disabled = true;
+        }
+
+        //Change the size of an already existing search area
+        function modifySearchRect(chosenAxis, newSize) {
+            if (document.getElementById("searchRect")) {
+                if (newSize < 0) {
+                    alert("Please enter any number greater than 0!");
+                    document.getElementById(chosenAxis).value = 1;
+                } else if (newSize == '') {
+                    alert("Only numeric values are supported!");
+                    document.getElementById(chosenAxis).value = 1;
+                } else if ((newSize > 0) && (newSize != '')) {
+                    var currentSize = document.getElementById('resizableBox').getFieldValue('size');
+                    if (chosenAxis == 'sizeX') {
+                        currentSize.x = newSize;
+                        document.getElementById('resizableBox').setFieldValue('size', currentSize);
+                        document.getElementById('sizeXX').value = newSize;
+                    } else if (chosenAxis == 'sizeY') {
+                        currentSize.y = newSize;
+                        document.getElementById('resizableBox').setFieldValue('size', currentSize);
+                        document.getElementById('sizeYY').value = newSize;
+                    } else if (chosenAxis == 'sizeZ') {
+                        currentSize.z = newSize;
+                        document.getElementById('resizableBox').setFieldValue('size', currentSize);
+                        document.getElementById('sizeZZ').value = newSize;
+                    } else {
+                        console.log("<<<PROBLEM IDENTIFYING AXIS - SEARCH AREA WAS NOT MODIFIED>>>");
+                    }
+                } else {
+                    console.log("<<<CANNOT SET SIZE = 0 - SEARCH AREA WAS NOT MODIFIED>>>");
+                }
+            } else {
+                document.getElementById(chosenAxis).value = 1;
+                alert("You have not created a rectangular search area!");
+            }
+
+        }
+
+        //Use mouse to set a Cone element which will be used as our indicator for k-NN queries
+        function setNNPoint() {
+            if (document.getElementById("switcher")) {
+                removeMarkerPoint();
+            }
+            if (document.getElementById("searchRect")) {
+                removeRectArea();
+            }
+            var kNNTransform = document.createElement('Transform');
+            kNNTransform.setAttribute('id', 'kNNCone');
+            kNNTransform.setAttribute('DEF', 'kNNCone');
+            kNNTransform.setAttribute('scale', '0.15 0.3 0.15');
+            kNNTransform.setAttribute('translation', '1 1 1');
+            kNNTransform.setAttribute('rotation', '1 0 0 3.1416');
+            var kNNShape = document.createElement('Shape');
+            kNNTransform.appendChild(kNNShape);
+            var kNNBox = document.createElement('Cone');
+            kNNShape.appendChild(kNNBox);
+            var kNNAppearance = document.createElement('Appearance');
+            kNNShape.appendChild(kNNAppearance);
+            var kNNMaterial = document.createElement('Material');
+            kNNMaterial.setAttribute('diffuseColor', 'olivedrab');
+            kNNMaterial.setAttribute('specularColor', 'peachpuff');
+            kNNAppearance.appendChild(kNNMaterial);
+            var X3DScene = document.getElementsByTagName('Scene')[0];
+            X3DScene.appendChild(kNNTransform);
+            var kNNPoint = document.getElementById("kNNCone");
+            document.getElementById("NNpointX").innerHTML = 1;
+            document.getElementById("NNpointY").innerHTML = 1;
+            document.getElementById("NNpointZ").innerHTML = 1;
+            document.getElementById("NNpointXX").innerHTML = 1;
+            document.getElementById("NNpointYY").innerHTML = 1;
+            document.getElementById("NNpointZZ").innerHTML = 1;
+            new x3dom.Moveable(X3DRoot, kNNPoint, get3DSpaceCoords, 0);
+            document.getElementById("createNNPoint").disabled = true;
+        }
+
+        //Get Cone's translation and display each axis value
+        function get3DSpaceCoords(elem, trans) {
+            document.getElementById("NNpointX").innerHTML = trans.x;
+            document.getElementById("NNpointY").innerHTML = trans.y;
+            document.getElementById("NNpointZ").innerHTML = trans.z;
+            document.getElementById("NNpointXX").innerHTML = trans.x;
+            document.getElementById("NNpointYY").innerHTML = trans.y;
+            document.getElementById("NNpointZZ").innerHTML = trans.z;
+        }
+
+        //Check that a valid NN value has been provided
+        function validateNN() {
+            var kNNId = document.getElementById("kNN");
+            var kNNvalue = document.getElementById("kNN").value;
+            if (isNaN(kNNvalue) || isNaN(parseInt(kNNvalue))) {
+                alert("Search value for nearest neighbour(s) has to be a number!");
+                document.getElementById("kNN").value = 1;
+            } else if (kNNvalue <= 0) {
+                alert("Search value for nearest neighbour(s) has to be greater than 0!");
+                document.getElementById("kNN").value = 1;
+            } else if (kNNvalue % 1 !== 0) {
+                alert("Search value for nearest neighbour(s) has to be an integer number!");
+                document.getElementById("kNN").value = 1;
+            } else {
+                //alert("kNN with value:" + kNNvalue);
+            }
+        }
+
+        //Remove from DOM the displayed query point element
+        function removeMarkerPoint() {
+            //document.getElementById("switcher").setAttribute('whichChoice', '-1');
+            var markerElem = document.getElementById("switcher");
+            for (var i = 0; i < markerElem.childNodes.length; i++) {
+                if (markerElem.childNodes[i].nodeType === Node.ELEMENT_NODE) {
+                    markerElem.removeChild(markerElem.childNodes[i]);
+                }
+            }
+            if (markerElem.parentNode) {
+                markerElem.parentNode.removeChild(markerElem);
+            } else {
+                console.log("No parent node detected - Couldn't delete the query point!");
+            }
+            document.getElementById("pointX").innerHTML = 'N/A';
+            document.getElementById("pointY").innerHTML = 'N/A';
+            document.getElementById("pointZ").innerHTML = 'N/A';
+            document.getElementById("pointXX").innerHTML = 'N/A';
+            document.getElementById("pointYY").innerHTML = 'N/A';
+            document.getElementById("pointZZ").innerHTML = 'N/A';
+            document.getElementById("createQueryPoint").disabled = false;
+        }
+
+        //Remove from DOM the displayed rectangular area element
+        function removeRectArea() {
+            var rectArea = document.getElementById("searchRect");
+            for (var i = 0; i < rectArea.childNodes.length; i++) {
+                if (rectArea.childNodes[i].nodeType === Node.ELEMENT_NODE) {
+                    rectArea.removeChild(rectArea.childNodes[i]);
+                }
+            }
+            if (rectArea.parentNode) {
+                rectArea.parentNode.removeChild(rectArea);
+            } else {
+                console.log("No parent node detected - Couldn't delete the search area!");
+            }
+            document.getElementById("sizeX").value = document.getElementById("sizeX").defaultValue;
+            document.getElementById("sizeY").value = document.getElementById("sizeY").defaultValue;
+            document.getElementById("sizeZ").value = document.getElementById("sizeZ").defaultValue;
+            document.getElementById("sizeXX").innerHTML = 'N/A';
+            document.getElementById("sizeYY").innerHTML = 'N/A';
+            document.getElementById("sizeZZ").innerHTML = 'N/A';
+            document.getElementById("createSearchArea").disabled = false;
+        }
+
+        //Remove from DOM the displayed NN query point element
+        function removeConePoint() {
+            var conePoint = document.getElementById("kNNCone");
+            for (var i = 0; i < conePoint.childNodes.length; i++) {
+                if (conePoint.childNodes[i].nodeType === Node.ELEMENT_NODE) {
+                    conePoint.removeChild(conePoint.childNodes[i]);
+                }
+            }
+            if (conePoint.parentNode) {
+                conePoint.parentNode.removeChild(conePoint);
+            } else {
+                console.log("No parent node detected - Couldn't delete the search area!");
+            }
+            document.getElementById("NNpointX").innerHTML = 'N/A';
+            document.getElementById("NNpointY").innerHTML = 'N/A';
+            document.getElementById("NNpointZ").innerHTML = 'N/A';
+            document.getElementById("NNpointXX").innerHTML = 'N/A';
+            document.getElementById("NNpointYY").innerHTML = 'N/A';
+            document.getElementById("NNpointZZ").innerHTML = 'N/A';
+            document.getElementById("createNNPoint").disabled = false;
+        }
+        //]]>
+    </script>
+    
+    <script src="scripts/jquery.min.js" type="text/javascript"></script>
+    <script src="scripts/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="scripts/default.js" type="text/javascript"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>
