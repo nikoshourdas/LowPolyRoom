@@ -134,12 +134,7 @@ function neuralnet(){
 
 
             }
-            else if (pr == 3){
-                console.log('bed');
-                // x3dom.canvases[0].x3dElem.children[0].children[3]._x3domNode._DEF = "bed_NN";
-
-            }
-            else {
+            else{
                 console.log('table');
                 x3dom.canvases[0].x3dElem.children[0].children[5]._x3domNode._DEF = "table_NN";
 
