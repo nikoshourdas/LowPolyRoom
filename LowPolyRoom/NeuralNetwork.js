@@ -117,26 +117,24 @@ function neuralnet(){
             
             if (pr == 0){
                 console.log("armchair");
-                x3dom.canvases[0].x3dElem.children[0].children[3]._x3domNode._DEF = "armchair_NN";
+                x3dom.canvases[0].x3dElem.children[0].children[3]._x3domNode._DEF = "prediction : red armchair";
             }
             else if (pr == 1){
                 console.log('cup');
-                x3dom.canvases[0].x3dElem.children[0].children[6]._x3domNode._DEF = "cup_NN";
-                x3dom.canvases[0].x3dElem.children[0].children[7]._x3domNode._DEF = "cup1_NN";
-                x3dom.canvases[0].x3dElem.children[0].children[9]._x3domNode._DEF = "cup2_NN";
-                x3dom.canvases[0].x3dElem.children[0].children[10]._x3domNode._DEF = "cup3_NN";
-                x3dom.canvases[0].x3dElem.children[0].children[11]._x3domNode._DEF = "cup4_NN";
-                x3dom.canvases[0].x3dElem.children[0].children[12]._x3domNode._DEF = "cup5_NN";
+                x3dom.canvases[0].x3dElem.children[0].children[6]._x3domNode._DEF = "prediction : red cup";
+                x3dom.canvases[0].x3dElem.children[0].children[8]._x3domNode._DEF = "prediction : blue cup";
+                x3dom.canvases[0].x3dElem.children[0].children[9]._x3domNode._DEF = "prediction : magenta cup";
+                x3dom.canvases[0].x3dElem.children[0].children[10]._x3domNode._DEF = "prediction : yellow cup";
             }
             else if (pr == 2){
                 console.log('sofa');
-                x3dom.canvases[0].x3dElem.children[0].children[4]._x3domNode._DEF = "sofa_NN";
+                x3dom.canvases[0].x3dElem.children[0].children[4]._x3domNode._DEF = "prediction : red sofa";
 
 
             }
             else{
                 console.log('table');
-                x3dom.canvases[0].x3dElem.children[0].children[5]._x3domNode._DEF = "table_NN";
+                x3dom.canvases[0].x3dElem.children[0].children[5]._x3domNode._DEF = "prediction : table_NN";
 
             }
         }
