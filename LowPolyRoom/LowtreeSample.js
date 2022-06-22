@@ -27,9 +27,9 @@ function AgenerateRtree() {
 	document.getElementById("createRtree").disabled = true;
 	//Make available the rest of R-tree and queries options 
 	document.getElementById("drawRtree").disabled = false;
-	document.getElementById("createQueryPoint").disabled = false;
-	document.getElementById("createSearchArea").disabled = false;
-	document.getElementById("createNNPoint").disabled = false;
+	// document.getElementById("createQueryPoint").disabled = false;
+	// document.getElementById("createSearchArea").disabled = false;
+	// document.getElementById("createNNPoint").disabled = false;
 }
 
 //Check at which spatial object(s) a given query point falls to
