@@ -117,24 +117,24 @@ function neuralnet(){
             
             if (pr == 0){
                 console.log("armchair");
-                x3dom.canvases[0].x3dElem.children[0].children[3]._x3domNode._DEF = "prediction : red armchair";
+                x3dom.canvases[0].x3dElem.children[0].children[3]._x3domNode._DEF = "red armchair(predicted)";
             }
             else if (pr == 1){
                 console.log('cup');
-                x3dom.canvases[0].x3dElem.children[0].children[6]._x3domNode._DEF = "prediction : red cup";
-                x3dom.canvases[0].x3dElem.children[0].children[8]._x3domNode._DEF = "prediction : blue cup";
-                x3dom.canvases[0].x3dElem.children[0].children[9]._x3domNode._DEF = "prediction : magenta cup";
-                x3dom.canvases[0].x3dElem.children[0].children[10]._x3domNode._DEF = "prediction : yellow cup";
+                x3dom.canvases[0].x3dElem.children[0].children[6]._x3domNode._DEF = "red cup(predicted)";
+                x3dom.canvases[0].x3dElem.children[0].children[8]._x3domNode._DEF = "blue cup(predicted)";
+                x3dom.canvases[0].x3dElem.children[0].children[9]._x3domNode._DEF = "magenta cup(predicted)";
+                x3dom.canvases[0].x3dElem.children[0].children[10]._x3domNode._DEF = "yellow cup(predicted)";
             }
             else if (pr == 2){
                 console.log('sofa');
-                x3dom.canvases[0].x3dElem.children[0].children[4]._x3domNode._DEF = "prediction : red sofa";
+                x3dom.canvases[0].x3dElem.children[0].children[4]._x3domNode._DEF = "red sofa(predicted)";
 
 
             }
             else{
                 console.log('table');
-                x3dom.canvases[0].x3dElem.children[0].children[5]._x3domNode._DEF = "prediction : table_NN";
+                x3dom.canvases[0].x3dElem.children[0].children[5]._x3domNode._DEF = " table_NN(predicted)";
 
             }
         }
