@@ -1152,6 +1152,9 @@ function drawDataTable(implicatedRelations) {
  }
  $(document).ready(function() {
 	$('#example').DataTable({
+		scrollY : '400px',
+		scrollCollapse : true,
+		paging : false,
 		data: implicatedRelations,
 		columns: [{ title: "Implicated Spatial Relations" }]
 	}); 
