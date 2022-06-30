@@ -39,8 +39,8 @@ footer {
   text-decoration: none;
   border: 4px solid #252525;
   margin-bottom: 20px;
-  background-image: url('https://images.unsplash.com/photo-1516051662687-567d7c4e8f6a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1868&q=80');
-    background-size: cover;
+  background-image: url('../styles/CardSelectionMenuImages/lowResRoomScreenShot.png');
+    background-size: center;
   
   @include media {
     height: 500px;
@@ -83,11 +83,25 @@ footer {
   text-align: center;
 }
 
+/* normal resolution card */
 .card2 {
-  background-image: url('https://images.unsplash.com/photo-1496317556649-f930d733eea3?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+  background-image: url('../styles/CardSelectionMenuImages/midResRoomScreenShot.png');
 }
 
+
+/* high Resolution Card */
 .card3 {
-  background-image: url('https://images.unsplash.com/photo-1557576842-3bc6093a5085?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+    background-image: url('../styles/CardSelectionMenuImages/highResRoomScreenShot.png');
 }
 
+.card4{
+    background-image: url('../styles/CardSelectionMenuImages/dummy.png');
+}
+
+.card5{
+    background-image: url('../styles/CardSelectionMenuImages/dummy.png');
+}
+
+.card6 {
+    background-image: url('../styles/CardSelectionMenuImages/dummy.png');
+}
