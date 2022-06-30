@@ -128,7 +128,7 @@ function neuralnet3(){
             }
             else{
                 console.log('plant');
-                x3dom.canvases[0].x3dElem.children[0].children[5]._x3domNode._DEF = "plant(predicted)";
+                x3dom.canvases[0].x3dElem.children[0].children[5]._x3domNode._DEF = "plant(predicted)"; 
 
             }
         }
