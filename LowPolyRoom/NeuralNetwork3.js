@@ -104,7 +104,7 @@ function neuralnet3(){
         //model & pred------------------------------------------------------
         async function loadModel(){
             
-            const model = await tf.loadLayersModel('http://127.0.0.1:8080/Desktop/LowPolyRoom-master/LowPolyRoom/model(3).json');
+            const model = await tf.loadLayersModel('http://10.0.24.246:8080/LowPolyRoom/model(3).json');
                                                     
             let numb = tf.reshape(list2,[(list2.length/3),3])
             pr = await model.predict(numb.expandDims(0));
