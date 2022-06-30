@@ -114,21 +114,21 @@ function neuralnet3(){
             
             if (pr == 0){
                 console.log("sink");
-                x3dom.canvases[0].x3dElem.children[0].children[3]._x3domNode._DEF = "sink_NN";
+                x3dom.canvases[0].x3dElem.children[0].children[3]._x3domNode._DEF = "sink(predicted)";
             }
             else if (pr == 1){
                 console.log('bathtup');
-                x3dom.canvases[0].x3dElem.children[0].children[6]._x3domNode._DEF = "bathtup_NN";
+                x3dom.canvases[0].x3dElem.children[0].children[6]._x3domNode._DEF = "bathtub(predicted)";
             }
             else if (pr == 2){
                 console.log('toilet');
-                x3dom.canvases[0].x3dElem.children[0].children[4]._x3domNode._DEF = "toilet_NN";
+                x3dom.canvases[0].x3dElem.children[0].children[4]._x3domNode._DEF = "toilet(predicted)";
 
 
             }
             else{
                 console.log('plant');
-                x3dom.canvases[0].x3dElem.children[0].children[5]._x3domNode._DEF = "plant_NN";
+                x3dom.canvases[0].x3dElem.children[0].children[5]._x3domNode._DEF = "plant(predicted)";
 
             }
         }
