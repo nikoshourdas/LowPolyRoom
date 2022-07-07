@@ -1,22 +1,11 @@
 
-//<![CDATA[
-var X3DRoot, pointCoordinates, kNNx, kNNy, kNNz, kNNmean;
-var rangeQuery = false;
-
-var startTime = performance.now();
-
-var label_armchair = "NUll";
-var label_table = "NUll";
-var label_sofa = "NUll";
-var label_cup = "NUll";
-var label_cup = "NUll";
-
-//neuralNetwork------------------------------------------------------------------------------------------------------
-function neuralnet3(){
-//coords----------------------------------------------------
+    //coords----------------------------------------------------
     let iop2=0;
-    for (var iop = 0; iop <6; iop++){
+    for (var iop = 0; iop <7; iop++){
         if (iop<3){
+            continue
+        }
+        else if (iop==4){
             continue
         }
         else{
@@ -29,7 +18,7 @@ function neuralnet3(){
             list0.push(parseFloat(list02[i]))
         }
         //-----------------------------------------------
-        if (iop<6){
+        if (iop2==3){
             function normalize_array(arr) {
             
                 normalize = function(val, max, min) { 
@@ -68,11 +57,11 @@ function neuralnet3(){
         for (var i = 0; i <  nuevo.length; i++) {
             for (var j = 0; j < 3; j++) {
                 list1[i][j] = nuevo[h];
-                 h=h+1
+                h=h+1
             }
         }
         //data to numofpoints----------------------------------------------------------------
-        let numofpoints=13500;
+        let numofpoints=6144;
         let list2=[]
         if (list0.length>numofpoints){
             while (list0.length>numofpoints){
@@ -104,40 +93,28 @@ function neuralnet3(){
         //model & pred------------------------------------------------------
         async function loadModel(){
             
-            const model = await tf.loadLayersModel('http://10.0.24.246:8080/LowPolyRoom/model(3).json');
+            const model = await tf.loadLayersModel('model.json');
                                                     
             let numb = tf.reshape(list2,[(list2.length/3),3])
             pr = await model.predict(numb.expandDims(0));
             pr = Array.from(pr.argMax(1).dataSync());
 
+        
             console.log(pr)
             
             if (pr == 0){
-                console.log("sink");
-                x3dom.canvases[0].x3dElem.children[0].children[3]._x3domNode._DEF = "sink(predicted)";
+                console.log("bathtub");
             }
             else if (pr == 1){
-                console.log('bathtup');
-                x3dom.canvases[0].x3dElem.children[0].children[6]._x3domNode._DEF = "bathtub(predicted)";
+                console.log('sink');
             }
             else if (pr == 2){
-                console.log('toilet');
-                x3dom.canvases[0].x3dElem.children[0].children[4]._x3domNode._DEF = "toilet(predicted)";
-
-
+                console.log('plant');
             }
             else{
-                console.log('plant');
-                x3dom.canvases[0].x3dElem.children[0].children[5]._x3domNode._DEF = "plant(predicted)"; 
-
+                console.log('toilet');
             }
         }
         loadModel()
-    }      
-    var endTime = performance.now();
-    var totaltime = endTime - startTime;
-    console.log("Neural Network performance, Time in : "+totaltime + " miliseconds");
-}
-// neuralnet()
-//----------------------s
-
+    }
+    
