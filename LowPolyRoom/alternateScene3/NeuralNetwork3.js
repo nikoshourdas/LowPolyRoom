@@ -1,4 +1,4 @@
-
+function neuralnet3(){
     //coords----------------------------------------------------
     let iop2=0;
     for (var iop = 0; iop <7; iop++){
@@ -118,3 +118,4 @@
         loadModel()
     }
     
+}
