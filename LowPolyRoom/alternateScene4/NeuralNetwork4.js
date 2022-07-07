@@ -114,21 +114,28 @@ function neuralnet4(){
                 
                 if (pr == 0){
                     console.log("bookshelf");
+                    x3dom.canvases[0].x3dElem.children[0].children[9]._x3domNode._DEF ="bookshelf (predicted)";
                 }
                 else if (pr == 1){
-                    console.log('chair');
+                    console.log('piano chair');
+                    x3dom.canvases[0].x3dElem.children[0].children[7]._x3domNode._DEF = "piano chair (predicted)" ; 
                 }
                 else if (pr == 2){
                     console.log('curtain');
+                    x3dom.canvases[0].x3dElem.children[0].children[11]._x3domNode._DEF ="curtain (predicted)";
                 }
                 else if (pr == 4){
                     console.log('guitar');
+                    x3dom.canvases[0].x3dElem.children[0].children[12]._x3domNode._DEF = "flying V ( predicted)";
+                    x3dom.canvases[0].x3dElem.children[0].children[13]._x3domNode._DEF = "stratocaster (predicted)";
                 }
                 else if (pr == 5){
                     console.log('lamp');
+                    x3dom.canvases[0].x3dElem.children[0].children[10]._x3domNode._DEF ="lamp (predicted)";
                 }
                 else{
                     console.log('piano');
+                    x3dom.canvases[0].x3dElem.children[0].children[8]._x3domNode._DEF = "piano (predicted)";
                 }
             }
             loadModel()

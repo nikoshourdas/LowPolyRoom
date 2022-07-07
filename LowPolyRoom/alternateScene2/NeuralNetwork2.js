@@ -117,21 +117,27 @@ for (var iop = 0; iop <10; iop++){
         
         if (pr == 0){
             console.log("bed");
+            x3dom.canvases[0].x3dElem.children[0].children[7]._x3domNode._DEF = "bed (predicted) " ;
         }
         else if (pr == 1){
-            console.log('chair');
+            console.log('desk chair');
+            x3dom.canvases[0].x3dElem.children[0].children[8]._x3domNode._DEF = "desk chair (predicted)";
         }
         else if (pr == 2){
             console.log('laptop');
+            x3dom.canvases[0].x3dElem.children[0].children[9]._x3domNode._DEF = "laptop (predicted)";
         }
         else if (pr == 3){
             console.log('plant');
+            x3dom.canvases[0].x3dElem.children[0].children[10]._x3domNode._DEF = "plant (predicted)";
         }
         else if (pr == 4){
             console.log('stand');
+            x3dom.canvases[0].x3dElem.children[0].children[12]._x3domNode._DEF = "tv stand (predicted)";
         }
         else{
             console.log('table');
+            x3dom.canvases[0].x3dElem.children[0].children[11]._x3domNode._DEF = "desk (predicted)" ;
         }
     }
     loadModel()

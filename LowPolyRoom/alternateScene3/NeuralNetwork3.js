@@ -104,15 +104,20 @@ function neuralnet3(){
             
             if (pr == 0){
                 console.log("bathtub");
+                x3dom.canvases[0].x3dElem.children[0].children[6]._x3domNode._DEF = "bathtub (predicted)";
             }
             else if (pr == 1){
                 console.log('sink');
+                x3dom.canvases[0].x3dElem.children[0].children[7]._x3domNode._DEF = "sink (predicted)"; 
             }
             else if (pr == 2){
                 console.log('plant');
+                x3dom.canvases[0].x3dElem.children[0].children[9]._x3domNode._DEF = "plant (predicted)";
+
             }
             else{
                 console.log('toilet');
+                x3dom.canvases[0].x3dElem.children[0].children[8]._x3domNode._DEF = "toilet (predicted)"; 
             }
         }
         loadModel()
