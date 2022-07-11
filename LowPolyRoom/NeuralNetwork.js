@@ -15,7 +15,7 @@ var label_cup = "NUll";
 function neuralnet(){
 //coords----------------------------------------------------
     let iop2=0;
-    for (var iop = 0; iop <3; iop++){
+    for (var iop = 0; iop < 10 ; iop++){
         if (iop==5){
             continue
         }
