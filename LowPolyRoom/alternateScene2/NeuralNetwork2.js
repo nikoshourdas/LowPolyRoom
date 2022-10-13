@@ -74,6 +74,65 @@ for (var iop = 0; iop <10; iop++){
             h=h+1
         }
     }
+    let list5=list1;
+                    
+        //------------------------------------------------------------------
+        let numb0=list01.length/4;
+        let maxx,maxy,maxz, minx,miny,minz,numb2=0;
+        let llist=list0, numb3=list0.length;
+
+        for (var i1 = 0; i1 < numb0; i1++) {
+            maxx=Math.max(list3[list5[i1][0]][0], list3[list5[i1][1]][0], list3[list5[i1][2]][0])
+            maxy=Math.max(list3[list5[i1][0]][1], list3[list5[i1][1]][1], list3[list5[i1][2]][1])
+            maxz=Math.max(list3[list5[i1][0]][2], list3[list5[i1][1]][2], list3[list5[i1][2]][2])
+            minx=Math.min(list3[list5[i1][0]][0], list3[list5[i1][1]][0], list3[list5[i1][2]][0])
+            miny=Math.min(list3[list5[i1][0]][1], list3[list5[i1][1]][1], list3[list5[i1][2]][1])
+            minz=Math.min(list3[list5[i1][0]][2], list3[list5[i1][1]][2], list3[list5[i1][2]][2])
+            
+            area1=(list3[list5[i1][0]][0]) 
+            area2=(list3[list5[i1][1]][1]) - (list3[list5[i1][2]][1])
+            area3=area1*area2;
+            area1=(list3[list5[i1][1]][0]) 
+            area2=(list3[list5[i1][2]][1]) - (list3[list5[i1][0]][1])
+            area3=area3+(area1*area2);
+            area1=(list3[list5[i1][2]][0]) 
+            area2=(list3[list5[i1][0]][1]) - (list3[list5[i1][1]][1])
+            area3=0.5*(area3+area1*area2);
+            if(area3<0){
+                numb2=10;
+            }
+            else{
+                numb2=20;
+            }
+
+            for(var i2=0; i2 < numb2; i2++ ){
+                llist[numb3]=(Math.random() * (maxx - minx) + minx);
+                numb3=numb3+1;
+                llist[numb3]=(Math.random() * (maxy - miny) + miny);
+                numb3=numb3+1;
+                llist[numb3]=(Math.random() * (maxz - minz) + minz );
+                numb3=numb3+1;
+            }
+        }
+        //-------------------------------------------------------------------------
+        // Create one dimensional array
+        var tlist = new Array(3);
+                    
+                    // Loop to create 2D array using 1D array
+        for (var i = 0; i <  llist.length; i++) {
+            tlist[i] = [];
+        }
+
+        h = 0;
+                    // Loop to initialize 2D array elements.
+        for (var i2 = 0; i2 <   llist.length; i2++) {
+            for (var j2 = 0; j2 < 3; j2++) {
+                tlist[i2][j2] =  llist[h];
+                h=h+1;
+            }
+        }
+
+        list0=tlist;
     //data to numofpoints----------------------------------------------------------------
     let numofpoints=12000;
     let list2=[]
